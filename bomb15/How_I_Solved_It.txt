@@ -1,0 +1,35 @@
+Name: Matthew 
+Linux username: mlowery
+Bomb number: 15
+
+Put a brief description of how you solved each phase here: 
+
+Phase1: 
+To solve phase 1 I saw that some value was being loaded into the rsi register and thereafter compared to what was in rax. If the values were equal it would not jump to the explode bomb call so I looked at the string in that register and used that as the password for the bomb.
+
+Phase2: 
+To solve phase 2, I stepped through the instructions and realized that I needed to input 6 positive numbers in order to
+move past the read_six_numbers function. I inputed 10,11,12,13,14,15 and it seemed to work; I began to
+step further into the instructions trying to find where the numbers went. I saw that they were put into the %rsp
+register as an array. I saw that the instructions were checking to see if the second number was equal to the previous
+plus a certain incremental value that happened to be one, so the first case of this loop like structure was satisfied.
+The incremental value was incremented by 1, so it was now 2. The instructions then checked if the third number was equal
+this incremental value plus the previous number and so on. I inputed 6 numbers that seemingly followed this pattern and
+it satisfied the phase. 
+
+Phase3:
+To solve phase three, I recognized that the sscanf call required input of the same type as was in the rsi register (its second argument),an integer followed by a space, followed by a string, followed by a space and another integer. So I inputed such types as the password. I then noticed that the value of the first integer in my password determined where the jmpq *%rax command would jump to. Once realizing that the higher int I placed in it was (while less or equal to 7) making the jump go to an address further down the phase_3 assembly, I made the first integer 7. After, I noticed that the assembly required the second integer to match the value 182, or 0xb6 in hex, so I changed my password to match such. Lastly, I looked at the integer value of ($rsp +7) as it required it to equal the decimal value 102 and saw it was some seemingly arbitrary and large number. So I toyed with the string in my password and set it to the ASCII value of 102, which is f.
+
+Phase4:
+In order to solve phase 4, I noticed the sscanf call once again, but now it required an input of two ints that could not be equal to one another. I then noticed the func4 and found that the first integer was changing in some way independently of the second. So I toyed with inputs until I got the required value after this integer was passed through the function. The phase then checked the second integer to see if it was equal to 27 so I altered my password to match. 
+
+Phase5:
+To solve the fifth phase, I noticed that the input was a string that needed to be of 6 in length. I then went through the loop while noticing that the loop had matched my input string to some other string in some predictable way to be compared with some string "oilers." If the mapping of my input string to some other string was not equal to "oilers," then the explode bomb method would be called. So I inputed different strings into my password until I knew which letters on the input were matched to o, i, l, e, r, and s respectively. 
+
+Phase6:
+In order to solve the 6th phase, I saw that none of the 6 numbers inputted could be equal to one another so to move past the first loop of sorts. I then realized that the only accepted integers were the values 1-6. My initial password was actually 6 5 4 3 2 1 so you could say I got lucky. Soon after I noticed that interchanging thes values changed the two values of the final comparsion before the phase was successfully diffused. I eventually saw that it had something to do with these "nodes." After looking at the values of the nodes in memory and recognizing memory was stored by the little endian system I saw that they were small data structures of sorts that had integers associated with 1-6 and pointed to one another successively. 1 was associated with 657,2 was asscociated with 437, etc. I then placed the numbers 1-6 in decreased order of the numbers they were associated with and this satisfied the phase.  
+
+
+
+
+
