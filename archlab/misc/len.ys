@@ -1,0 +1,41 @@
+# Initialization
+    .pos 0              # Execution begins at address 0 
+
+    irmovq stack, %rsp  # Set up stack pointer
+    call main           # Execute main program
+    halt                # Terminate program 
+
+# Array of 4 elements
+    .align 8
+array:
+    .quad 0x000d000d000d
+    .quad 0x00c000c000c0
+    .quad 0x0b000b000b00
+    .quad 0xa000a000a000
+    .quad 0
+
+main:
+    irmovq array,%rdi
+    call len             # len(array)
+    ret
+
+# long len(long *array)
+# array in %rdi
+len:
+    irmovq $1, %r8       # Constant 1
+    irmovq $8, %r9       # Constant 8
+    mrmovq (%rdi), %rdx  # val = *a
+    irmovq $0, %rax      # len = 0
+test:
+    andq %rdx, %rdx      # Test val
+    je done              # If zero, goto Done
+    addq %r9, %rdi       # a++
+    addq %r8, %rax       # len++
+    mrmovq (%rdi), %rdx  # val = *a
+    jmp test             # Jump to test
+done:
+    ret
+                                                             
+# Stack starts here and grows to lower addresses
+    .pos 0x200
+stack:   # Make sure there is a line after this one

@@ -1,0 +1,46 @@
+# Matthew Lowery
+# execution begins at address 0
+  .pos 0
+  irmovq stack, %rsp  # set up stack pointer
+  call main           # execute main program
+  halt                # terminate program
+
+# sample linked list
+.align 8
+ele1:
+.quad 0x00a
+.quad ele2
+ele2:
+.quad 0x0b0
+.quad ele3
+ele3:
+.quad 0xc00
+.quad 0
+
+main:
+  irmovq ele1, %rdi
+  call sum_list
+  ret
+
+# begin sum.ys
+# long sum_list(list_ptr ls)
+# start in %rdi, sum in %rax
+
+sum_list:
+  xorq %rax, %rax       # zero out register # sum is zero
+  jmp test
+loop:
+  mrmovq (%rdi), %r10   # get first val
+  addq %r10, %rax       # add to sum
+  iaddq $8, %rdi        # move to address of next val
+  mrmovq (%rdi), %rdi   # place in the register
+test:
+  andq %rdi, %rdi       # stop when 0 is in the register
+  jne loop
+  xorq %r10, %r10       # restore register r10
+  ret
+
+# end sum.ys
+# stack starts here and grows to lower addresses
+  .pos 0x100
+stack:

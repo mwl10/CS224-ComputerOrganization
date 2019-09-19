@@ -1,0 +1,48 @@
+# Matthew Lowery
+# execution begins at address 0
+  .pos 0
+  irmovq stack, %rsp  # set up stack pointer
+  call main           # execute main program
+  halt                # terminate program
+
+# sample linked list
+.align 8
+ele1:
+.quad 0x00a
+.quad ele2
+ele2:
+.quad 0x0b0
+.quad ele3
+ele3:
+.quad 0xc00
+.quad 0
+
+main:
+  irmovq ele1, %rdi
+  call rsum_list
+  ret
+
+# begin rsum.ys
+# long rsum_list(list_ptr ls)
+# start in rdi, sum in rax
+
+rsum_list:
+if:
+  andq %rdi, %rdi     # set condition codes
+  jne else            # if not zero jump to else
+  irmovq $0, %rax     # set return value to 0
+  ret
+else:
+  pushq %rbx          # save callee-saved register
+  mrmovq (%rdi), %rbx # get start val
+  iaddq $8, %rdi      # move to next address
+  mrmovq (%rdi), %rdi # place in the register
+  call rsum_list    # recursive function call
+  addq %rbx, %rax   # add * start to sum
+  popq %rbx         # restore callee-saved register
+  ret
+
+# end rsum.ys
+# stack starts here and grows to lower addresses
+  .pos 0x100
+stack:
