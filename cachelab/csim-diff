@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Test for csim
+if [ !  -x "./csim" ]
+then
+    echo "./csim does not exist.  Run 'make' and try again."
+    exit 1
+fi
+
+./csim "$@" > csim.out
+./csim-ref "$@" > csim-ref.out
+diff csim.out csim-ref.out
