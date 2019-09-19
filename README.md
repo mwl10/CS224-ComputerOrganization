@@ -1,2 +1,2 @@
 # CS224-ComputerOrganization
-All labs and assignments for Operating Systems course. 
+All labs and assignments for Computer Organization course. 
