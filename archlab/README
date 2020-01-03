@@ -1,3 +1,14 @@
+For Archlab A I wrote several Y86-64 programs in order to become familiar with the Y86-64 tools. I also extended the SEQ 
+simulator with a new instruction iaddq. Y86-64 is a 'toy' machine that is similar to the x86 but much simpler. It is a 
+gentler introduction to assembly level programming than the x86: just a few instructions as opposed to hundreds for the x86; 
+few addressing modes; simpler system state; absolute addressing.
+The first Y86-64 program was sum.ys, which iteratively sums a linked list of elements. 
+The next Y86-64 program was rsum.ys, which recursively sums a linked list of elements. 
+Lastly, copy.ys, which copies a source block of words from one part of memory to another (non-overlapping) area of 
+memory, computing the checksum (xor) of all the words copied. 
+
+
+
 /***********************************************************************
  * Y86-64 Tools (Student Distribution)
  *
