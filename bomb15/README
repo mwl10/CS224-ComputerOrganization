@@ -1,5 +1,6 @@
 This binary bomb lab consists of a sequence of phases. Each phase expects you to type a particular string on stdin.
 If you type the correct string, the phase is defused and the bomb proceeds on to the next phase. Otherwise, 
 the bomb explodes, and the program terminates. To complete this lab, I used the GNU debugger in order to step through the 
-disassembled binary. I was able to trace through the program line by line, examine memory and registers, and look at both the source code and the assembly code 
-(without most of the source code), set breakpoints, set memory watch points, and write scripts. 
+disassembled binary. I was able to trace through the program line by line, examine memory and registers, 
+and look at both the source code and the assembly code (without most of the source code), 
+set breakpoints, set memory watch points, and write scripts. 
