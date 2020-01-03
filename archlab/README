@@ -7,7 +7,12 @@ The next Y86-64 program was rsum.ys, which recursively sums a linked list of ele
 Lastly, copy.ys, which copies a source block of words from one part of memory to another (non-overlapping) area of 
 memory, computing the checksum (xor) of all the words copied. 
 
-
+For Archlab B, I learned about the design and implementation of a pipelined Y86-64 processor by optimizing a benchmark 
+program to maximize performance. Firstly, I added the proper HCL code to add the iaddq instruction for the pipelined 
+processor. Afterwards, I optimized the ncopy function so to run as efficiently as possible our pipeline processor 
+implementation. I was able to reorder instructions, replace groups of instructions with single instructions, delete some 
+instructions, and add other instructions so long as the semantics of the program was preserved. I also used loop 
+unrolling to make the program more efficient. 
 
 /***********************************************************************
  * Y86-64 Tools (Student Distribution)
