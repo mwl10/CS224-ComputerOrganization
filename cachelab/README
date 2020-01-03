@@ -1,3 +1,8 @@
+
+For this lab I completed a small C program that simulates the behavior of a cache memory. 
+I worte a cache simulator in csim.c that takes a valgrind memory trace, simulates the hit/miss behavior of a cache memory
+on this trace, and outputs the total number of hits, misses, and evictions. 
+******************************************************
 This is the handout directory for the CS224 Cache Lab. 
 
 ************************
